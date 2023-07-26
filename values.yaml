@@ -53,8 +53,8 @@ host: defectdojo.default.minikube.local
 # DD_ALLOWED_HOSTS. This is necessary when your local hostname does not match
 # the global hostname.
 alternativeHosts:
-  - defectdojo-route-secret-secure-code-poc.apps.io
-csrfTrustedOrigins: http://defectdojo-route-secret-secure-code-poc.apps.io
+  - dd-route-forreal-sebocampo-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+csrfTrustedOrigins: http://dd-route-forreal-sebocampo-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
 imagePullPolicy: Always
 # Where to pull the defectDojo images from. Defaults to "defectdojo/*" repositories on hub.docker.com
 repositoryPrefix: defectdojo
