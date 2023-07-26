@@ -1,15 +1,15 @@
 ---
 # Global settings
 # create defectdojo specific secret
-createSecret: false
+createSecret: true
 # create rabbitmq secret in defectdojo chart, outside of rabbitmq chart
-createRabbitMqSecret: false
+createRabbitMqSecret: true
 # create redis secret in defectdojo chart, outside of redis chart
 createRedisSecret: false
 # create mysql secret in defectdojo chart, outside of mysql chart
 createMysqlSecret: false
 # create postgresql secret in defectdojo chart, outside of postgresql chart
-createPostgresqlSecret: false
+createPostgresqlSecret: true
 # create postgresql-ha secret in defectdojo chart, outside of postgresql-ha chart
 createPostgresqlHaSecret: false
 # create postgresql-ha-pgpool secret in defectdojo chart, outside of postgresql-ha chart
@@ -52,8 +52,9 @@ host: defectdojo.default.minikube.local
 # optional list of alternative hostnames to use that gets appended to
 # DD_ALLOWED_HOSTS. This is necessary when your local hostname does not match
 # the global hostname.
-# alternativeHosts:
-#  - defectdojo.example.com
+alternativeHosts:
+  - defectdojo-route-secret-secure-code-poc.apps.io
+csrfTrustedOrigins: http://defectdojo-route-secret-secure-code-poc.apps.io
 imagePullPolicy: Always
 # Where to pull the defectDojo images from. Defaults to "defectdojo/*" repositories on hub.docker.com
 repositoryPrefix: defectdojo
@@ -191,7 +192,7 @@ django:
   ingress:
     enabled: true
     ingressClassName: ""
-    activateTLS: true
+    activateTLS: false
     secretName: defectdojo-tls
     annotations: {}
       # Restricts the type of ingress controller that can interact with our chart (nginx, traefik, ...)
@@ -445,7 +446,7 @@ rabbitmq:
   enabled: true
   replicaCount: 1
   auth:
-    password: ""
+    password: "password"
     erlangCookie: ""
     existingPasswordSecret: defectdojo-rabbitmq-specific
     secretPasswordKey: ""
@@ -464,10 +465,10 @@ rabbitmq:
       cpu: 500m
       memory: 512Mi
   podSecurityContext:
-    enabled: true
+    enabled: false
     fsGroup: 1001
   containerSecurityContext:
-    enabled: true
+    enabled: false
     runAsUser: 1001
     runAsNonRoot: true
 
